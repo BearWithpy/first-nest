@@ -12,7 +12,7 @@ export class AppController {
 
   @Get('/hello')
   sayHello(): string{
-    return 'Hi Everyone';
+    return this.appService.getHi();
   }
 }
 
