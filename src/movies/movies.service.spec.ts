@@ -45,4 +45,37 @@ describe("MoviesService", () => {
       }
     });
   });
+
+  describe("deleteOne", () => {
+    it("deletes a movie", () => {
+      service.create({
+        title: "Test Mov",
+        genres: ["test"],
+        year: 2020,
+      });
+      const beforeDelete = service.getAll().length;
+      service.deleteOne(1);
+      const afterDelete = service.getAll();
+      expect(afterDelete).toBeLessThan(beforeDelete);
+    });
+    it("should return a 404", () => {
+      try {
+        service.deleteOne(999);
+      } catch (e) {
+        expect(e).toBeInstanceOf(NotFoundException);
+      }
+    });
+  });
+  describe("create", () => {
+    it("should create a movie", () => {
+      const beforeCreate = service.getAll().length;
+      service.create({
+        title: "Test Mov",
+        genres: ["test"],
+        year: 2020,
+      });
+      const afterCreate = service.getAll().length;
+      expect(afterCreate).toBeGreaterThan(beforeCreate);
+    });
+  });
 });
